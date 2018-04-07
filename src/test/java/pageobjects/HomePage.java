@@ -26,8 +26,6 @@ public class HomePage extends BasePage {
         $("//div[@class=\"navbar navbar-inverse navbar-fixed-top\"]").waitUntilVisible();
     }
 
-    @FindBy(xpath = "")
-    public WebElementFacade btn;
 
     public WebElement findGrid(String name) {
         logger.info("Looking for a grid " + name);

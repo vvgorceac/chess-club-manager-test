@@ -3,28 +3,29 @@ package pageobjects.base;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
+import org.openqa.selenium.WebElement;
 
 public class BasePage extends PageObject {
 
     @FindBy(xpath = "//a[text()=' Домой']")
-    public WebElementFacade homeButton;
+    public WebElement homeButton;
 
     @FindBy(xpath = "//a[text()=' Турниры']")
-    public WebElementFacade tournamentsButton;
+    public WebElement tournamentsButton;
 
     @FindBy(xpath = "//a[text()=' Игроки']")
-    public WebElementFacade playersButton;
+    public WebElement playersButton;
 
     @FindBy(xpath = "//a[text()=' Новости']")
-    public WebElementFacade newsButton;
+    public WebElement newsButton;
 
     @FindBy(xpath = "//a[text()=' Помощь \\ язык ']")
-    public WebElementFacade helpButton;
+    public WebElement helpButton;
 
     @FindBy(xpath = "//a[text()=' Вход']")
-    public WebElementFacade loginButton;
+    public WebElement loginButton;
 
     @FindBy(xpath = "//a[text()=' Контакты']")
-    public WebElementFacade contact;
+    public WebElement contact;
 
 }
