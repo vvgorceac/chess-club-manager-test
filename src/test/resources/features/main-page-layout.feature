@@ -11,5 +11,5 @@ Feature: Main Page layout
       | pages    | buttons           |
       | homePage | homeButton        |
       | homePage | tournamentsButton |
-      | homePage | playersButton   |
+      | homePage | playersButton     |
 
