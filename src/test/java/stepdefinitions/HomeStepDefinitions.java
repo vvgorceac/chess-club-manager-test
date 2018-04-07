@@ -43,6 +43,6 @@ public class HomeStepDefinitions {
     public void iSeeForTournamentTableCorrespondingColumns(String param, DataTable columns) throws Throwable {
         List<String> expected =  columns.asList(String.class);
         logger.info("Expecting to see " + expected);
-        Assert.assertThat(homePage.getHeaderColumns(param), is(expected));
+        Assert.assertThat(homePage.findGrid(param).getHeaderColumns(), is(expected));
     }
 }
