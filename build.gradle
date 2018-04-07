@@ -2,13 +2,56 @@ group 'com.usm'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'net.serenity-bdd.aggregator'
+apply from: "driverDownloads.gradle"
 
 sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+    mavenLocal()
+    jcenter()
 }
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+buildscript {
+
+    ext {
+        jUnitVersion = '4.12'
+        seleniumVersion = '3.11.0'
+        serenityVersion = '1.9.4'
+        slf4jVersion = '1.7.25'
+        serenityCucumberVersion = '1.9.4'
+    }
+
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath "net.serenity-bdd:serenity-gradle-plugin:$serenityVersion"
+        classpath "commons-io:commons-io:2.5"
+    }
 }
+
+
+
+test {
+    dependsOn drivers.collect { tasks["${it}Setup"] }
+    systemProperty "webdriver.chrome.driver", "${driversDir}/${chromeDriverFileName}"
+    systemProperty "webdriver.gecko.driver", "${driversDir}/${firefoxDriverFileName}"
+    systemProperties = System.getProperties()
+    outputs.upToDateWhen { false }  // Always run tests
+}
+
+
+dependencies {
+    compile "commons-io:commons-io:2.5"
+    drivers.each { compile "org.seleniumhq.selenium:selenium-$it-driver:$seleniumVersion" }
+    testCompile "net.serenity-bdd:serenity-core:$serenityVersion"
+    testCompile "net.serenity-bdd:serenity-cucumber:$serenityCucumberVersion"
+    testCompile "net.serenity-bdd:serenity-junit:$serenityVersion"
+    testCompile "org.slf4j:slf4j-simple:$slf4jVersion"
+    testCompile "junit:junit:$jUnitVersion"
+}
+
+gradle.startParameter.continueOnFailure = true
