@@ -1,30 +1,33 @@
 package pageobjects;
 
 import net.serenitybdd.core.annotations.findby.By;
+import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
+import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.annotations.WhenPageOpens;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pageobjects.base.BasePage;
 
 import java.util.LinkedList;
 import java.util.List;
 
 @DefaultUrl("/")
-public class HomePage extends PageObject {
+public class HomePage extends BasePage {
     Logger logger = LoggerFactory.getLogger(PageObject.class);
 
-    public HomePage(WebDriver driver) {
-        super(driver);
-    }
 
     @WhenPageOpens
     public void waitUntilNavBarAppears() {
         logger.info("Wait Until Navigation bar appears");
         $("//div[@class=\"navbar navbar-inverse navbar-fixed-top\"]").waitUntilVisible();
     }
+
+    @FindBy(xpath = "")
+    public WebElementFacade btn;
 
     public WebElement findGrid(String name) {
         logger.info("Looking for a grid " + name);
