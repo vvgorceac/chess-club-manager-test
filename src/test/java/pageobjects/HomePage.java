@@ -1,7 +1,9 @@
 package pageobjects;
 
+import net.serenitybdd.core.annotations.findby.By;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.annotations.WhenPageOpens;
+import net.thucydides.core.pages.components.HtmlTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pageobjects.base.BasePage;
@@ -22,7 +24,7 @@ public class HomePage extends BasePage {
 
     public Grid findGrid(String name) {
         logger.info("Looking for a grid " + name);
-        return new Grid(".//table[@id=\"" + name + "\"]", getDriver());
+        return new Grid($(".//table[@id=\"" + name + "\"]"));
     }
 
     public int getRowsCountForGrid(String name) {

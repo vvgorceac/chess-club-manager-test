@@ -9,19 +9,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wrappers.base.BaseWrapper;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
-public class Grid extends BaseWrapper {
+public class Grid {
 
     Logger logger = LoggerFactory.getLogger(Grid.class);
 
-    public Grid(String xpath, WebDriver driver){
-        super(xpath, driver);
+    private final WebElement tableElement;
+
+    public Grid(final WebElement tableElement) {
+        this.tableElement = tableElement;
     }
 
+    public boolean isDisplayed() {
+        return this.tableElement.isDisplayed();
+    }
+
+
     public List<String> getHeaderColumns() {
-        List<WebElement> list = locator.findElements(By.xpath(".//thead//th"));
+        List<WebElement> list = tableElement.findElements(By.xpath(".//thead//th"));
         List<String> ar = new LinkedList<String>();
         for (WebElement el : list) {
             ar.add(el.getText());
@@ -31,17 +40,14 @@ public class Grid extends BaseWrapper {
     }
 
     public int getRowsCount() {
-        WebElement locatorT = locator;
+        WebElement locatorT = tableElement;
 
-         List<WebElement> list = locatorT.findElements(By.xpath(".//tbody//tr[not(.//a/i)]"));
+        List<WebElement> list = locatorT.findElements(By.xpath(".//tbody//tr[not(.//a/i)]"));
 
         int i = list.size();
         logger.info("Get Rows Cound For Grid = " + i);
         return i;
     }
-
-
-
 
 
 }
