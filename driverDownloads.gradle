@@ -1,0 +1,77 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+import org.apache.commons.io.FileUtils
+
+ext {
+    drivers = ["firefox", "chrome"]
+    chromeDriverVersion = '2.37'
+    geckoDriverVersion = '0.18.0'
+    phantomJsVersion = '2.1.1'
+    driversDir = file("${rootProject.projectDir}/drivers").path
+
+    chromeDriverFileName = Os.isFamily(Os.FAMILY_WINDOWS) ? "chromedriver.exe" : "chromedriver"
+    firefoxDriverFileName = Os.isFamily(Os.FAMILY_WINDOWS) ? "geckodriver.exe" : "geckodriver"
+
+    geckoBaseUrl = "https://github.com/mozilla/geckodriver/releases/download/" +
+            "v${geckoDriverVersion}/geckodriver-v${geckoDriverVersion}-"
+
+    chromeBaseUrl = "http://chromedriver.storage.googleapis.com/${chromeDriverVersion}/" +
+            "chromedriver_"
+
+
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "commons-io:commons-io:2.5"
+    }
+}
+
+task downloadfirefoxDriver(type: Copy) {
+    outputs.upToDateWhen {file("${driversDir}/${firefoxDriverFileName}").exists()}
+
+    def ostype = "win32"
+    def filetype = ".zip"
+    if (Os.isFamily(Os.FAMILY_MAC)) {
+        ostype = "macos"
+        filetype = ".tar.gz"
+    } else if (Os.isFamily(Os.FAMILY_UNIX)) {
+        ostype = Os.isArch("amd64") ? "linux64" : "linux32"
+        filetype = ".tar.gz"
+    }
+
+    def zipFile = file("$driversDir/geckodriver${filetype}")
+    def downloadURL = geckoBaseUrl + "${ostype}${filetype}"
+
+    FileUtils.copyURLToFile(new URL(downloadURL), zipFile)
+
+    filetype == ".zip" ? from(zipTree(zipFile)) : from(tarTree(zipFile))
+    into(driversDir)
+}
+
+task downloadchromeDriver(type: Copy) {
+    outputs.upToDateWhen {file("${driversDir}/${chromeDriverFileName}").exists()}
+
+    def ostype = "win32"
+    def filetype = ".zip" // it's always zip for chrome
+    if (Os.isFamily(Os.FAMILY_MAC)) {
+        ostype = "mac64"
+    } else if (Os.isFamily(Os.FAMILY_UNIX)) {
+        ostype = Os.isArch("amd64") ? "linux64" : "linux32"
+    }
+
+    def zipFile = file("${driversDir}/chromedriver${filetype}")
+    def downloadURL = chromeBaseUrl + "${ostype}${filetype}"
+    FileUtils.copyURLToFile(new URL(downloadURL), zipFile)
+
+    from(zipTree(zipFile))
+    into(driversDir)
+}
+
+drivers.each {
+    driver -> task "${driver}Setup" {
+        dependsOn tasks["download${driver}Driver"]
+    }
+}
