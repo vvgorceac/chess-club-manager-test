@@ -12,11 +12,11 @@ import org.slf4j.LoggerFactory;
 import java.util.LinkedList;
 import java.util.List;
 
-@DefaultUrl("http://chessclubmanager.somee.com/")
-public class MainPage extends PageObject {
+@DefaultUrl("/")
+public class HomePage extends PageObject {
     Logger logger = LoggerFactory.getLogger(PageObject.class);
 
-    public MainPage(WebDriver driver) {
+    public HomePage(WebDriver driver) {
         super(driver);
     }
 
