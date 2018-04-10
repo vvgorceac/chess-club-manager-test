@@ -6,14 +6,11 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pageobjects.HomePage;
+import pageobjects.*;
 import pageobjects.base.BasePage;
 
-import java.lang.reflect.Method;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -23,6 +20,13 @@ public class HomeStepDefinitions {
     Logger logger = LoggerFactory.getLogger(HomeStepDefinitions.class);
 
     HomePage homePage;
+    TournamentsPage tournamentsPage;
+    NewsPage newsPage;
+    PlayersPage playersPage;
+    LogInPage logInPage;
+    PlayersDetailsPage playerDetailsPage;
+    TournamentsDetailsPage tournamentsDetailsPage;
+    NewsDetailsPage newsDetailsPage;
 
     @Steps
     HomeActions homeActions;
@@ -34,22 +38,59 @@ public class HomeStepDefinitions {
 
     @Given("I am on '(.*)'")
     public void iAmOnPage(String param) throws Throwable {
-        switch (param){
-            case "homePage": homePage.open();
+        BasePage page;
+        switch (param) {
+            case "homePage":
+                page = homePage;
+                break;
+            case "tournamentsPage":
+                page = tournamentsPage;
+                break;
+            case "playersPage":
+                page = playersPage;
+                break;
+//            case "contactsPage":
+//                page = contactsPage;
+//                break;
+            case "newsPage":
+                page = newsPage;
+                break;
+            case "logInPage":
+                page = logInPage;
+                break;
+            case "tournamentsDetailsPage":
+                page = tournamentsDetailsPage;
+                tournamentsPage.open();
+                tournamentsPage.openTournament(0);
+                break;
+            case "playerDetailsPage":
+                page = playerDetailsPage;
+                playersPage.open();
+                playersPage.openPlayer(0);
+                break;
+            case "newsDetailsPage":
+                page = newsDetailsPage;
+                newsPage.open();
+                newsPage.openNews(0);
+                break;
         }
     }
 
     @Then("I see '(.*)' of '(.*)' is displayed")
     public void iSeeButton(String button, String page) throws Throwable {
         BasePage basePage = null;
-        switch (page){
-            case "homePage": basePage = homePage;
+        switch (page) {
+            case "homePage":
+                basePage = homePage;
         }
 
-        switch (button){
-            case "homeButton" : assert (basePage.homeButton.isDisplayed());
-            case "tournamentsButton": assert (basePage.tournamentsButton.isDisplayed());
-            case "playersButton": assert (basePage.playersButton.isDisplayed());
+        switch (button) {
+            case "homeButton":
+                assert (basePage.homeButton.isDisplayed());
+            case "tournamentsButton":
+                assert (basePage.tournamentsButton.isDisplayed());
+            case "playersButton":
+                assert (basePage.playersButton.isDisplayed());
         }
     }
 
@@ -67,7 +108,7 @@ public class HomeStepDefinitions {
 
     @Then("I see for '(.*)' tournament table corresponding columns")
     public void iSeeForTournamentTableCorrespondingColumns(String param, DataTable columns) throws Throwable {
-        List<String> expected =  columns.asList(String.class);
+        List<String> expected = columns.asList(String.class);
         logger.info("Expecting to see " + expected);
         Assert.assertThat(homePage.findGrid(param).getHeaderColumns(), is(expected));
     }
