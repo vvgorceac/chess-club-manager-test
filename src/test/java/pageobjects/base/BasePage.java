@@ -9,6 +9,9 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//a[text()=' Домой']")
     public WebElement homeButton;
 
+    @FindBy(xpath = ".//a[@href=\"/\" and contains(.,\" Sweed Sugar Chess\")]")
+    public WebElement logo;
+
     @FindBy(xpath = "//a[text()=' Турниры']")
     public WebElement tournamentsButton;
 
@@ -26,5 +29,4 @@ public class BasePage extends PageObject {
 
     @FindBy(xpath = "//a[text()=' Контакты']")
     public WebElement contact;
-
 }

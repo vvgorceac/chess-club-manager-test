@@ -1,4 +1,3 @@
-@runThis
 Feature: Main Page layout
   As a user I want to be able to see tournaments grids on the main page.
 
@@ -13,7 +12,7 @@ Feature: Main Page layout
       | currentTournaments |
       | futureTournaments  |
       | lastTournaments    |
-
+  @runTHis
   Scenario Outline: As a user I should see current, future and completed tournament tables rows count < or = 5
     Given I am on main page
     Then I see for '<tables>' tournament table rows count is less or equal to 5

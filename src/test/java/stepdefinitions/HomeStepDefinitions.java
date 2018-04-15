@@ -25,8 +25,10 @@ public class HomeStepDefinitions {
     PlayersPage playersPage;
     LogInPage logInPage;
     PlayersDetailsPage playerDetailsPage;
-    TournamentsDetailsPage tournamentsDetailsPage;
+    TournamentDetailPage tournamentDetailPage;
     NewsDetailsPage newsDetailsPage;
+
+    BasePage basePage;
 
     @Steps
     HomeActions homeActions;
@@ -38,38 +40,37 @@ public class HomeStepDefinitions {
 
     @Given("I am on '(.*)'")
     public void iAmOnPage(String param) throws Throwable {
-        BasePage page;
         switch (param) {
             case "homePage":
-                page = homePage;
+                homePage.open();
                 break;
             case "tournamentsPage":
-                page = tournamentsPage;
+                tournamentsPage.open();
                 break;
             case "playersPage":
-                page = playersPage;
+                playersPage.open();
                 break;
 //            case "contactsPage":
 //                page = contactsPage;
 //                break;
             case "newsPage":
-                page = newsPage;
+                newsPage.open();
                 break;
             case "logInPage":
-                page = logInPage;
+                logInPage.open();
                 break;
             case "tournamentsDetailsPage":
-                page = tournamentsDetailsPage;
+                logger.info("OPENING PAGE");
                 tournamentsPage.open();
-                tournamentsPage.openTournament(0);
+                logger.info("OPENING TOURNAMENT");
+                tournamentsPage.openTournament(2);
+                logger.info("TOURNAMENT OPENED");
                 break;
             case "playerDetailsPage":
-                page = playerDetailsPage;
                 playersPage.open();
                 playersPage.openPlayer(0);
                 break;
             case "newsDetailsPage":
-                page = newsDetailsPage;
                 newsPage.open();
                 newsPage.openNews(0);
                 break;
@@ -78,20 +79,31 @@ public class HomeStepDefinitions {
 
     @Then("I see '(.*)' of '(.*)' is displayed")
     public void iSeeButton(String button, String page) throws Throwable {
-        BasePage basePage = null;
-        switch (page) {
-            case "homePage":
-                basePage = homePage;
+        switch (button) {
+            case "clubLogo":
+                Assert.assertTrue(basePage.logo.isDisplayed());
+                break;
+            case "homeButton":
+                Assert.assertTrue(basePage.homeButton.isDisplayed());
+                break;
+            case "tournamentsButton":
+                Assert.assertTrue(basePage.tournamentsButton.isDisplayed());
+                break;
+            case "playersButton":
+                Assert.assertTrue(basePage.playersButton.isDisplayed());
+                break;
+            case "newsButton":
+                Assert.assertTrue(basePage.newsButton.isDisplayed());
+                break;
+            case "changeLanguageMenu":
+                Assert.assertTrue(basePage.helpButton.isDisplayed());
+                break;
+            case "logInButton":
+                Assert.assertTrue(basePage.loginButton.isDisplayed());
+                break;
+
         }
 
-        switch (button) {
-            case "homeButton":
-                assert (basePage.homeButton.isDisplayed());
-            case "tournamentsButton":
-                assert (basePage.tournamentsButton.isDisplayed());
-            case "playersButton":
-                assert (basePage.playersButton.isDisplayed());
-        }
     }
 
 

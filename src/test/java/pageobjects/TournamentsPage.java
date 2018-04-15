@@ -3,6 +3,9 @@ package pageobjects;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
+import net.thucydides.core.annotations.WhenPageOpens;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pageobjects.base.BasePage;
@@ -16,7 +19,21 @@ public class TournamentsPage extends BasePage {
     @FindBy(xpath = ".//h2")
     WebElementFacade tournamentsLabel;
 
-    public Grid grid = new Grid($(".//table"));
+    public Grid getGrid() {
+        return new Grid($(".//table"));
+    }
 
+
+    @WhenPageOpens
+    public void waitUntilNavBarAppears() {
+        logger.info("Wait Until Navigation bar appears");
+        $("//div[@class=\"navbar navbar-inverse navbar-fixed-top\"]").waitUntilVisible();
+    }
+
+    public void openTournament(int rowIndex) throws InterruptedException {
+        int colIndex = 12;
+        logger.info("Opening Tournament");
+        this.getGrid().getCell(rowIndex, colIndex).findElement(By.xpath(".//a")).click();
+    }
 
 }
