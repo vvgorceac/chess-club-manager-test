@@ -42,5 +42,12 @@ public class Grid {
         return i;
     }
 
+    public WebElement getCell(int rowIndex, int colIndex) {
+        logger.info("Searching for a cell row:" + rowIndex + " col:" + colIndex);
+        WebElement el = this.tableElement.findElement(By.xpath("//tbody//tr[" + rowIndex + "]/td[" + colIndex + "]"));
+        logger.info("Cell was found");
+        return el;
+    }
+
 
 }

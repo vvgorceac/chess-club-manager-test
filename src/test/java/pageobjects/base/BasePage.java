@@ -6,25 +6,25 @@ import org.openqa.selenium.WebElement;
 
 public class BasePage extends PageObject {
 
-    @FindBy(xpath = "//a[text()=' Домой']")
+    @FindBy(xpath = ".//a[./i[@class=\"fa fa-home\"]]")
     public WebElement homeButton;
 
-    @FindBy(xpath = "//a[text()=' Турниры']")
+    @FindBy(xpath = ".//a[@href=\"/Tournaments\"]")
     public WebElement tournamentsButton;
 
-    @FindBy(xpath = "//a[text()=' Игроки']")
+    @FindBy(xpath = ".//a[@href=\"/Players\"]")
     public WebElement playersButton;
 
-    @FindBy(xpath = "//a[text()=' Новости']")
+    @FindBy(xpath = ".//a[@href=\"/News\"]")
     public WebElement newsButton;
 
-    @FindBy(xpath = "//a[text()=' Помощь \\ язык ']")
+    @FindBy(xpath = ".//a[@class=\"dropdown-toggle\" and ./i[@class=\"fa fa-info\"]]")
     public WebElement helpButton;
 
-    @FindBy(xpath = "//a[text()=' Вход']")
+    @FindBy(xpath = ".//a[@href=\"/Account/Login\"]")
     public WebElement loginButton;
 
-    @FindBy(xpath = "//a[text()=' Контакты']")
-    public WebElement contact;
+//    @FindBy(xpath = "//a[text()=' Контакты']")
+//    public WebElement contact;
 
 }
