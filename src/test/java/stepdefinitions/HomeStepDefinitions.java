@@ -8,8 +8,8 @@ import net.thucydides.core.annotations.Steps;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pageobjects.*;
 import pageobjects.base.BasePage;
+import pageobjects.pages.*;
 
 import java.util.List;
 

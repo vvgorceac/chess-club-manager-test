@@ -1,4 +1,4 @@
-package pageobjects;
+package pageobjects.pages;
 
 import pageobjects.base.BasePage;
 

@@ -1,7 +1,7 @@
 package actions;
 
 import net.thucydides.core.annotations.Step;
-import pageobjects.HomePage;
+import pageobjects.pages.HomePage;
 
 public class HomeActions {
     HomePage homePage;

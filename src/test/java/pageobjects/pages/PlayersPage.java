@@ -1,23 +1,20 @@
-package pageobjects;
+package pageobjects.pages;
 
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.annotations.WhenPageOpens;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pageobjects.base.BasePage;
-import wrappers.Grid;
+import pageobjects.wrappers.Grid;
 
-@DefaultUrl("/News")
-public class NewsPage extends BasePage {
-    public Grid grid = new Grid($(".//table"));
-    Logger logger = LoggerFactory.getLogger(NewsPage.class);
+@DefaultUrl("/PlayersPage")
+public class PlayersPage extends BasePage {
+    Logger logger = LoggerFactory.getLogger(PlayersPage.class);
 
-//    public NewsPage(WebDriver driver) {
+//    public PlayersPage(WebDriver driver) {
 //        super(driver);
 //    }
-
 
     @WhenPageOpens
     public void waitUntilNavBarAppears() {
@@ -25,8 +22,9 @@ public class NewsPage extends BasePage {
         $("//div[@class=\"navbar navbar-inverse navbar-fixed-top\"]").waitUntilVisible();
     }
 
+    public Grid grid = new Grid($(".//table"));
 
-    public void openNews(int rowIndex) {
+    public void openPlayer(int rowIndex) {
         int colIndex = 11;
         this.grid.getCell(rowIndex, colIndex).findElement(By.xpath(".//a")).click();
     }

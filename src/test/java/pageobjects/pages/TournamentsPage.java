@@ -1,4 +1,4 @@
-package pageobjects;
+package pageobjects.pages;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pageobjects.base.BasePage;
-import wrappers.Grid;
+import pageobjects.wrappers.Grid;
 
 @DefaultUrl("/Tournaments")
 public class TournamentsPage extends BasePage {
